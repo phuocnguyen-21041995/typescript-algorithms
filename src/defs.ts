@@ -3,6 +3,7 @@ import peak from "./algorithms/array/peak";
 import peak2D from "./algorithms/array/2Dpeak";
 import insertionSort from "./algorithms/array/insertion_sort";
 import mergeSort from "./algorithms/array/merge_sort";
+import heapSort from "./algorithms/array/heap_sort";
 
 export const cli: Cli = {
     key: "ds",
@@ -38,6 +39,12 @@ export const cli: Cli = {
                     description: "Merge Sort",
                     children: [],
                     exec: mergeSort,
+                },
+                {
+                    key: "heapSort",
+                    description: "Heap Sort",
+                    children: [],
+                    exec: heapSort,
                 },
             ],
         },
