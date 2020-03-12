@@ -4,6 +4,7 @@ import peak2D from "./algorithms/array/2Dpeak";
 import insertionSort from "./algorithms/array/insertion_sort";
 import mergeSort from "./algorithms/array/merge_sort";
 import heapSort from "./algorithms/array/heap_sort";
+import bstTree from "./algorithms/tree/bst";
 
 export const cli: Cli = {
     key: "ds",
@@ -48,5 +49,16 @@ export const cli: Cli = {
                 },
             ],
         },
+        {
+            key: "trees",
+            children: [
+                {
+                    key: "bst",
+                    description: "Binary Search Tree",
+                    children: [],
+                    exec: bstTree,
+                },
+            ]
+        }
     ]
 };
