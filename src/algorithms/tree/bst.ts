@@ -114,12 +114,11 @@ class BinarySearchTree<T>{
         return this._filter(this.root, [], predicate);
     }
 
-    // Resume
-    /*
-    private _findDFS(
+    // FIND NOT WORKING
+    private _find(
         node: Node<T>,
         predicate: (nodeValue: T) => boolean,
-     ): T {
+     ): T | undefined {
 
         if (!node) {
             return undefined;
@@ -129,20 +128,30 @@ class BinarySearchTree<T>{
             return node.value;
         }
 
-        const doNextNode = (nextNode: Node<T>) => {
+        const doNextNode = (nextNode: Node<T>): T | undefined => {
             return this._find(nextNode, predicate);
         }
 
-        if (node.left && predicate(node.left.value)) {
-            doNextNode(node.left);
-        }
-        if (node.right && predicate(node.right.value)) {
-            doNextNode(node.right);
+        if (node.left && !predicate(node.left.value)) {
+            const result = doNextNode(node.left);
+            if (result !== undefined) {
+                return result;
+            }
         }
 
-        return results;
+        if (node.right && !predicate(node.right.value)) {
+            const result = doNextNode(node.right);
+            if (result !== undefined) {
+                return result;
+            }
+        }
     }
-    */
+
+    public find(
+        predicate: (nodeValue: T) => boolean,
+    ): T | undefined {
+        return this._find(this.root, predicate);
+    }
 }
 
 export function createBinarySearchTree<T>(
@@ -175,6 +184,10 @@ export default function main(): void {
     print("");
     print("Filtered: < 50");
     print(bst.filter((v) => v < 50).toString());
+
+    print("");
+    print("find: 21");
+    print((bst.find(v => v === 21) || 0).toString());
 
     print("");
 }
