@@ -66,54 +66,84 @@ class BinarySearchTree<T>{
     public getRoot(): Node<T> {
         return this.root;
     }
+
+    private _print(node: Node<T>, depth: number = 0): string {
+        let text: string = "";
+        const spaces = ("-").repeat(depth);
+
+        text += `${spaces}| ${node.value}\n`;
+
+        if (node.left) {
+            text += this._print(node.left, depth + 2);
+        }
+        if (node.right) {
+            text += this._print(node.right, depth + 2);
+        }
+
+        return text;
+    }
+
+    public print(): string {
+        return this._print(this.root, 0);
+    }
+
+    private _filter(
+        node: Node<T>,
+        results: T[],
+        predicate: (nodeValue: T) => boolean,
+     ): T[] {
+
+        const doNextNode = (nextNode: Node<T>) => {
+            results.push(nextNode.value);
+            this._filter(nextNode, results, predicate);
+        }
+
+        if (node.left && predicate(node.left.value)) {
+            doNextNode(node.left);
+        }
+        if (node.right && predicate(node.right.value)) {
+            doNextNode(node.right);
+        }
+
+        return results;
+    }
+
+    public filter(
+        predicate: (nodeValue: T) => boolean,
+    ) {
+        return this._filter(this.root, [], predicate);
+    }
+
+    // Resume
+    /*
+    private _findDFS(
+        node: Node<T>,
+        predicate: (nodeValue: T) => boolean,
+     ): T {
+
+        if (!node) {
+            return undefined;
+        }
+
+        if (predicate(node.value)) {
+            return node.value;
+        }
+
+        const doNextNode = (nextNode: Node<T>) => {
+            return this._find(nextNode, predicate);
+        }
+
+        if (node.left && predicate(node.left.value)) {
+            doNextNode(node.left);
+        }
+        if (node.right && predicate(node.right.value)) {
+            doNextNode(node.right);
+        }
+
+        return results;
+    }
+    */
 }
-
-/*
-// here
-function printBST(node, depth = 0) {
-    let text = '';
-    const spaces = ('-').repeat(depth);
-    text += `${spaces}| ${node.value}\n`;
-    
-    if (node.l) {
-        text += printBST(node.l, depth + 2);
-    }
-    if (node.r) {
-        text += printBST(node.r, depth + 2);
-    }
-
-    return text;
-}
-
-function countBST(node, value) {
-    let count = 1;
-    
-    if (node.l && node.l.value <= value) {
-        count += countBST(node.l, value);
-    }
-    if (node.r && node.r.value <= value) {
-        count += countBST(node.r, value);
-    }
-
-    return count;
-}
-
-function lteBST(node, value) {
-    if (!node) {
-        return 0;
-    }
-
-    if (node.value <= value) {
-        return countBST(node, value);
-    }
-
-    if (value < node.value) {
-        return lteBST(node.l, value);
-    } else {
-        return lteBST(node.r, value);
-    }
-}
-*/
 
 export function createBinarySearchTree<T>(
     predicate: (value: T) => any,
@@ -132,7 +162,19 @@ export default function main(): void {
     bst.insertAll([19,21,29,31,69,71,79,81]);
 
     print("");
-    print(`Input: [${items}]`)
-    const root: Node<number> = bst.getRoot();
-    // console.log(JSON.stringify(root));
+    print(`Input: [${items}]`);
+
+    print("");
+    print("Tree:");
+    print(bst.print());
+
+    print("");
+    print("Filtered: > 50");
+    print(bst.filter((v) => v > 50).toString());
+
+    print("");
+    print("Filtered: < 50");
+    print(bst.filter((v) => v < 50).toString());
+
+    print("");
 }
