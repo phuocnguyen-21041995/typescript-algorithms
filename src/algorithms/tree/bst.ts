@@ -87,6 +87,7 @@ class BinarySearchTree<T>{
         return this._print(this.root, 0);
     }
 
+    // error in filter
     private _filter(
         node: Node<T>,
         results: T[],
@@ -114,32 +115,32 @@ class BinarySearchTree<T>{
         return this._filter(this.root, [], predicate);
     }
 
-    // FIND NOT WORKING
     private _find(
         node: Node<T>,
-        predicate: (nodeValue: T) => boolean,
+        value: any,
+        toValue: (nodeValue: T) => any,
      ): T | undefined {
 
         if (!node) {
             return undefined;
         }
 
-        if (predicate(node.value)) {
+        if (toValue(node.value) === value) {
             return node.value;
         }
 
         const doNextNode = (nextNode: Node<T>): T | undefined => {
-            return this._find(nextNode, predicate);
+            return this._find(nextNode, value, toValue);
         }
 
-        if (node.left && !predicate(node.left.value)) {
+        if (node.left && value < toValue(node.value)) {
             const result = doNextNode(node.left);
             if (result !== undefined) {
                 return result;
             }
         }
 
-        if (node.right && !predicate(node.right.value)) {
+        if (node.right && value > toValue(node.value)) {
             const result = doNextNode(node.right);
             if (result !== undefined) {
                 return result;
@@ -148,9 +149,10 @@ class BinarySearchTree<T>{
     }
 
     public find(
-        predicate: (nodeValue: T) => boolean,
+        value: any,
+        toValue: (nodeValue: T) => any,
     ): T | undefined {
-        return this._find(this.root, predicate);
+        return this._find(this.root, value, toValue);
     }
 }
 
@@ -182,12 +184,12 @@ export default function main(): void {
     print(bst.filter((v) => v > 50).toString());
 
     print("");
-    print("Filtered: < 50");
-    print(bst.filter((v) => v < 50).toString());
+    print("Filtered: <= 50");
+    print(bst.filter((v) => v <= 50).toString());
 
     print("");
     print("find: 21");
-    print((bst.find(v => v === 21) || 0).toString());
+    print((bst.find(21, v => v) || 0).toString());
 
     print("");
 }
