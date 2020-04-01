@@ -87,7 +87,6 @@ class BinarySearchTree<T>{
         return this._print(this.root, 0);
     }
 
-    // error in filter
     private _filter(
         node: Node<T>,
         results: T[],
@@ -99,6 +98,9 @@ class BinarySearchTree<T>{
             this._filter(nextNode, results, predicate);
         }
 
+        if (node && predicate(node.value)) {
+            results.push(node.value);
+        }
         if (node.left && predicate(node.left.value)) {
             doNextNode(node.left);
         }
@@ -181,7 +183,7 @@ export default function main(): void {
 
     print("");
     print("Filtered: > 50");
-    print(bst.filter((v) => v > 50).toString());
+    print(bst.filter((v) => v >= 50).toString());
 
     print("");
     print("Filtered: <= 50");
