@@ -6,6 +6,7 @@ import mergeSort from "./algorithms/array/merge_sort";
 import heapSort from "./algorithms/array/heap_sort";
 import bstTree from "./algorithms/tree/bst";
 import avlTree from "./algorithms/tree/avl";
+import radixSort from "./algorithms/array/radix_sort";
 
 export const cli: Cli = {
     key: "ds",
@@ -47,6 +48,12 @@ export const cli: Cli = {
                     description: "Heap Sort",
                     children: [],
                     exec: heapSort,
+                },
+                {
+                    key: "radixSort",
+                    description: "Radix Sort",
+                    children: [],
+                    exec: radixSort,
                 },
             ],
         },
