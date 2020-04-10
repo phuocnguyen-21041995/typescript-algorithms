@@ -7,6 +7,7 @@ import heapSort from "./algorithms/array/heap_sort";
 import bstTree from "./algorithms/tree/bst";
 import avlTree from "./algorithms/tree/avl";
 import radixSort from "./algorithms/array/radix_sort";
+import linkListHashTable from "./algorithms/hashtable/link.list";
 
 export const cli: Cli = {
     key: "ds",
@@ -71,6 +72,17 @@ export const cli: Cli = {
                     description: "AVL Tree",
                     children: [],
                     exec: avlTree,
+                },
+            ]
+        },
+        {
+            key: "hashTables",
+            children: [
+                {
+                    key: "linklist",
+                    description: "Link List",
+                    children: [],
+                    exec: linkListHashTable,
                 },
             ]
         }
