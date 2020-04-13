@@ -194,11 +194,11 @@ class HashTable<K, V> {
         return (existing) ? existing.value : null;
     }
 
-    values(): V[] {
+    public values(): V[] {
         return this._flatten().map((item) => item.value);
     }
 
-    keys(): K[] {
+    public keys(): K[] {
         return this._flatten().map((item) => item.key);
     }
 

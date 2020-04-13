@@ -8,6 +8,7 @@ import bstTree from "./algorithms/tree/bst";
 import avlTree from "./algorithms/tree/avl";
 import radixSort from "./algorithms/array/radix_sort";
 import linkListHashTable from "./algorithms/hashtable/link.list";
+import openAddressHashTable from "./algorithms/hashtable/open.address";
 
 export const cli: Cli = {
     key: "ds",
@@ -83,6 +84,12 @@ export const cli: Cli = {
                     description: "Link List",
                     children: [],
                     exec: linkListHashTable,
+                },
+                {
+                    key: "openAddress",
+                    description: "Open Addressing",
+                    children: [],
+                    exec: openAddressHashTable,
                 },
             ]
         }
