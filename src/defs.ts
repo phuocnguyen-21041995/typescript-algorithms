@@ -9,6 +9,7 @@ import avlTree from "./algorithms/tree/avl";
 import radixSort from "./algorithms/array/radix_sort";
 import linkListHashTable from "./algorithms/hashtable/link.list";
 import openAddressHashTable from "./algorithms/hashtable/open.address";
+import searchRabinKarp from "./algorithms/search/rabinKarp";
 
 export const cli: Cli = {
     key: "ds",
@@ -90,6 +91,17 @@ export const cli: Cli = {
                     description: "Open Addressing",
                     children: [],
                     exec: openAddressHashTable,
+                },
+            ]
+        },
+        {
+            key: "search",
+            children: [
+                {
+                    key: "rk",
+                    description: "Rabin Karp",
+                    children: [],
+                    exec: searchRabinKarp,
                 },
             ]
         }
